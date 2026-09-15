@@ -1,0 +1,36 @@
+<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wedding Invitation</title>
+<style>
+body{margin:0;background:#090909;color:#f7f2e8;font-family:Georgia,"Noto Serif Bengali",serif}*{box-sizing:border-box}.wrap{max-width:900px;margin:auto;padding:18px}.hero{text-align:center;min-height:75vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(#0004,#000e),url("assets/couple.jpg") center/cover;opacity:.5}.hero>*{position:relative}.gold{color:#d8b36a}.bismillah{font-size:25px}.names{font-size:clamp(42px,9vw,80px);line-height:1.05}.and{font-size:.5em;color:#d8b36a}.card{background:#151515;border:1px solid #d8b36a44;border-radius:18px;padding:22px;margin:18px 0}.title{text-align:center;color:#d8b36a}.photo{width:100%;max-height:520px;object-fit:cover;border-radius:13px}.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gallery img{width:100%;height:230px;object-fit:cover;border-radius:12px}.count{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;text-align:center}.count div{border:1px solid #d8b36a44;border-radius:10px;padding:9px}.count b{display:block;color:#d8b36a;font-size:26px}.btn{border:1px solid #d8b36a;background:#d8b36a;color:#111;padding:11px 17px;border-radius:30px;cursor:pointer;text-decoration:none;font-weight:bold;margin:4px}.alt{background:transparent;color:#d8b36a}.buttons{text-align:center}.editor{display:none}.editor.open{display:block}input{width:100%;padding:12px;margin:5px 0 13px;background:#080808;color:white;border:1px solid #554936;border-radius:8px;font-size:16px}label{color:#c9c0b2;font-size:14px}.note{color:#c9c0b2;background:#1c1710;padding:10px;border-radius:8px;font-size:13px}
+@media(max-width:600px){.gallery{grid-template-columns:1fr}.gallery img{height:250px}}
+</style></head><body>
+<header class="hero"><div><div class="bismillah gold">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div><p>WEDDING INVITATION</p><h1 class="names"><span id="g">Arafat Hossain</span><br><span class="and">&amp;</span><br><span id="b">Jannatul Tamanna</span></h1><div id="d" class="gold">01 September 2027</div><p><a class="btn" href="#details">View Invitation</a><button class="btn alt" onclick="music()">♫ Music</button></p></div></header>
+<main class="wrap" id="details">
+<div class="card"><h2 class="title">You Are Invited</h2><p style="text-align:center">With the blessings of our families, we joyfully invite you to celebrate the wedding of</p><h2 id="couple" style="text-align:center" class="gold"></h2><p id="venue" style="text-align:center"></p><p id="time" style="text-align:center"></p></div>
+<div class="card"><h2 class="title">Countdown</h2><div class="count"><div><b id="dd">0</b>Days</div><div><b id="hh">0</b>Hours</div><div><b id="mm">0</b>Minutes</div><div><b id="ss">0</b>Seconds</div></div></div>
+<div class="card"><h2 class="title">Our Story</h2><img id="cp" class="photo" src="assets/couple.jpg"></div>
+<div class="card"><h2 class="title">Moments</h2><div id="gallery" class="gallery"></div></div>
+<div class="card"><h2 class="title">Location</h2><p id="address" style="text-align:center"></p><div class="buttons"><a id="maps" class="btn" target="_blank">Open Google Maps</a></div></div>
+<div class="card"><h2 class="title">RSVP</h2><input id="guest" placeholder="Your Name"><input id="guests" type="number" min="1" value="1"><div class="buttons"><button class="btn" onclick="rsvp()">Confirm via WhatsApp</button></div></div>
+<div class="card editor" id="editor"><h2 class="title">✦ Edit Wedding Card</h2><div class="note">Tablet থেকেই তথ্য পরিবর্তন করুন। Save চাপলে এই browser/device-এ preview update হবে।</div>
+<label>Groom Name</label><input id="eg"><label>Bride Name</label><input id="eb"><label>Wedding Date</label><input id="ed" type="date"><label>Event Time</label><input id="et" type="time"><label>Venue</label><input id="ev"><label>Address</label><input id="ea"><label>Google Maps Link</label><input id="em"><label>WhatsApp Number</label><input id="ew" placeholder="8801XXXXXXXXX">
+<label>Couple Photo</label><input id="ec" type="file" accept="image/*"><label>Gallery Photos</label><input id="egallery" type="file" accept="image/*" multiple><label>Wedding Song</label><input id="esong" type="file" accept="audio/*">
+<div class="buttons"><button class="btn" onclick="save()">Save</button><button class="btn alt" onclick="resetCard()">Reset</button></div></div></main>
+<footer style="text-align:center;padding:30px;color:#c9c0b2">Made with love • Arafat &amp; Jannatul<br><button class="btn alt" onclick="openEditor()">⚙ Edit Card</button></footer>
+<audio id="audio" loop src="assets/wedding-music.mp3"></audio>
+<script>
+const def={g:"Arafat Hossain",b:"Jannatul Tamanna",d:"2027-09-01",t:"19:00",v:"Venue will be announced",a:"Bariyarhat, Mirsharai, Chattogram, Bangladesh",m:"",w:""};
+let x=JSON.parse(localStorage.getItem("weddingCard")||"null")||def,cu=null,gu=[],so=null,$=i=>document.getElementById(i);
+function date(s){return new Date(s+"T00:00:00").toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"})}
+function render(){g.textContent=x.g;b.textContent=x.b;d.textContent=date(x.d);couple.textContent=x.g+" & "+x.b;venue.textContent=x.v;time.textContent=x.t;address.textContent=x.a;maps.href=x.m||"#";maps.style.display=x.m?"inline-block":"none";eg.value=x.g;eb.value=x.b;ed.value=x.d;et.value=x.t;ev.value=x.v;ea.value=x.a;em.value=x.m;ew.value=x.w}
+function openEditor(){$("editor").classList.toggle("open");$("editor").scrollIntoView({behavior:"smooth"})}
+function save(){x={g:eg.value||def.g,b:eb.value||def.b,d:ed.value||def.d,t:et.value||def.t,v:ev.value||def.v,a:ea.value||def.a,m:em.value,w:ew.value};localStorage.setItem("weddingCard",JSON.stringify(x));render();if(cu)cp.src=cu;if(so)audio.src=so;alert("Saved on this Tablet!")}
+function resetCard(){localStorage.removeItem("weddingCard");location.reload()}
+ec.onchange=e=>{if(e.target.files[0]){cu=URL.createObjectURL(e.target.files[0]);cp.src=cu}}
+egallery.onchange=e=>{gu=[...e.target.files].map(f=>URL.createObjectURL(f));draw()}
+esong.onchange=e=>{if(e.target.files[0]){so=URL.createObjectURL(e.target.files[0]);audio.src=so}}
+function draw(){gallery.innerHTML="";(gu.length?gu:[1,2,3,4,5,6].map(n=>"assets/photo"+n+".jpg")).forEach(s=>{let i=document.createElement("img");i.src=s;gallery.appendChild(i)})}
+function rsvp(){if(!x.w)return alert("Edit Card-এ WhatsApp number দিন");let msg=encodeURIComponent("Wedding RSVP\nName: "+(guest.value||"Guest")+"\nGuests: "+(guests.value||1));open("https://wa.me/"+x.w.replace(/\D/g,"")+"?text="+msg,"_blank")}
+function music(){audio.paused?audio.play():audio.pause()}
+function tick(){let z=Math.max(0,new Date(x.d+"T"+x.t+":00").getTime()-Date.now());dd.textContent=Math.floor(z/86400000);hh.textContent=Math.floor(z/3600000)%24;mm.textContent=Math.floor(z/60000)%60;ss.textContent=Math.floor(z/1000)%60}
+render();draw();tick();setInterval(tick,1000)
+</script></body></html>
